@@ -1,45 +1,28 @@
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Russo_One } from "next/font/google";
-const russo = Russo_One({ weight: "400", subsets: ["latin"] });
+import Link from 'next/link';
 
 export default function Navbar() {
-  const path = usePathname();
-
-  const menu = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Find Team", href: "/find-team" },
-  ];
-
   return (
-    <nav className="w-full bg-[#020617]/80 backdrop-blur-sm border-b border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-
-        {/* LOGO */}
-        <Link href="/" className="font-heading text-2xl font-extrabold tracking-wide">
-          PUSH ID
-        </Link>
-
-        {/* NAV MENU */}
-        <div className="flex gap-6">
-          {menu.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`text-sm font-semibold transition ${
-                path === item.href
-                  ? "text-indigo-400"              // active page
-                  : "text-slate-300 hover:text-white"
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-
+    <nav className="w-full py-6 px-8 flex justify-between items-center max-w-7xl mx-auto absolute top-0 left-0 right-0 z-50">
+      {/* LOGO */}
+      <div className="text-2xl md:text-3xl font-black tracking-tighter text-white font-heading">
+        PUSH <span className="text-white">ID</span>
       </div>
+
+      {/* MENU LINKS */}
+      <div className="hidden md:flex gap-8 items-center">
+        <Link href="/" className="text-white font-bold hover:text-indigo-400 transition-colors">
+          Home
+        </Link>
+        <Link href="/about" className="text-slate-300 font-bold hover:text-indigo-400 transition-colors">
+          About
+        </Link>
+        <Link href="/lobby" className="text-slate-300 font-bold hover:text-indigo-400 transition-colors">
+          Find Team
+        </Link>
+      </div>
+
+      {/* MOBILE MENU BUTTON (Hiasan dulu) */}
+      <div className="md:hidden text-white text-2xl">☰</div>
     </nav>
   );
 }

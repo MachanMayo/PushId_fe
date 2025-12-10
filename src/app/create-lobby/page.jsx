@@ -1,13 +1,15 @@
 "use client";
 
+import React from 'react';
+
 export default function CreateLobby() {
   // FLOW: Logic "Sudah Login?" 
   // Nanti pakai Session Check disini. Kalau belum login, redirect('/login').
   
   return (
-    <main className="min-h-screen bg-[#020617] text-slate-50 p-4 md:p-10">
+    <main className="min-h-screen bg-[#020617] text-slate-50 p-4 md:p-10 font-sans">
       <div className="max-w-xl mx-auto">
-        <h1 className="font-heading text-3xl font-bold mb-2">Buat Lobby Baru</h1>
+        <h1 className="text-3xl font-bold mb-2 text-white">Buat Lobby Baru</h1>
         <p className="text-slate-400 mb-8">Cari tim impianmu dengan kriteria spesifik.</p>
 
         {/* FLOW: Isi Form (Judul, Game, Syarat, Link) */}
@@ -72,6 +74,13 @@ export default function CreateLobby() {
             Terbitkan Lobby
           </button>
         </form>
+
+        {/* Tombol Kembali (Opsional) */}
+        <div className="mt-6 text-center">
+            <a href="/lobby" className="text-slate-500 hover:text-white text-sm transition">
+                Kembali ke Lobby
+            </a>
+        </div>
 
       </div>
     </main>
