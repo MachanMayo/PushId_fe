@@ -1,147 +1,161 @@
-'use client'; // Wajib karena ada interaksi user
+'use client';
 
 import React, { useState } from 'react';
 // import Link from 'next/link'; // Gunakan ini di project asli
-import { Eye, EyeOff, CheckSquare, Square } from 'lucide-react';
+import { Eye, EyeOff, CheckSquare, Square, Apple } from 'lucide-react';
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
 
   return (
-    // LAYOUT UTAMA: h-screen dan overflow-hidden agar pas satu layar tanpa scroll
-    <div className="flex h-screen overflow-hidden bg-[#050511] text-white font-sans">
+    <div className="min-h-screen w-full flex bg-[#020617] text-white font-sans overflow-hidden">
       
-      {/* --- BAGIAN KIRI (GAMBAR) --- */}
-      <div className="hidden lg:flex w-1/2 relative bg-[#0a0a16] items-center justify-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#050511] z-10"></div>
-        
-        <img 
-          src="/image-login-register.png" 
-          alt="Register Character" 
-          // UPDATE: Menambahkan 'object-top' agar posisi gambar fokus di atas (sama seperti Login)
-          className="w-full h-full object-contain opacity-90"
-          onError={(e) => {
-            e.target.style.display = 'none'; 
-            e.target.parentNode.style.backgroundColor = '#1e1b4b'; 
-          }}
-        />
+      {/* --- BAGIAN KIRI: GAMBAR (55%) --- 
+          Gambar full height, object-cover agar rapi
+      */}
+      <div className="hidden lg:flex lg:w-[55%] relative items-center justify-center bg-[#0B0E14] overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/login-register.jpg" 
+            alt="Register Character" 
+            className="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-10000 ease-linear"
+            onError={(e) => {
+              e.target.style.display = 'none'; 
+              e.target.parentNode.style.backgroundColor = '#1e293b'; 
+            }}
+          />
+          {/* Gradient Overlay agar menyatu dengan background kanan */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#020617]/10 to-[#020617] z-10"></div>
+        </div>
       </div>
 
-      {/* --- BAGIAN KANAN (FORM REGISTER) --- */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center px-6 md:px-12 py-12 relative z-20 h-full overflow-y-auto">
+      {/* --- BAGIAN KANAN: FORM REGISTER (45%) --- */}
+      <div className="w-full lg:w-[45%] flex flex-col justify-center items-center px-6 py-12 bg-[#020617] relative z-20 h-full overflow-y-auto">
         
-        <div className="w-full max-w-md space-y-6">
+        {/* CONTAINER PEMBATAS LEBAR (Mencegah Form Melebar) */}
+        <div className="w-full max-w-[420px] space-y-6">
           
-          {/* Header */}
-          <div className="text-center space-y-2">
-            <h1 className="text-1xl font-black bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent uppercase tracking-wider mb-2">
-              PUSH ID
-            </h1>
-            <h2 className="text-3xl font-bold text-gray-200 tracking-wide">
+          {/* 1. LOGO & HEADER */}
+          <div className="flex flex-col items-center mb-8">
+            <div className="flex flex-col items-center gap-2 mb-2">
+                <div className="relative">
+                    {/* Icon P */}
+                    <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-lg flex items-center justify-center font-black text-xl italic shadow-[0_0_15px_rgba(37,99,235,0.5)] z-10 relative">
+                        P
+                    </div>
+                    {/* Glow Effect */}
+                    <div className="absolute -inset-1 bg-blue-500/20 blur-lg rounded-full"></div>
+                </div>
+                {/* Text PUSH ID */}
+                <span className="font-black text-lg tracking-wider bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mt-2">
+                    PUSH ID
+                </span>
+            </div>
+            
+            <h2 className="text-2xl md:text-3xl font-bold text-white tracking-wide text-center mt-2">
               Create your Account
             </h2>
           </div>
 
-          {/* Tab Switcher */}
-          <div className="flex gap-6 text-lg font-semibold mt-6 mb-2">
-            {/* Menggunakan <a> untuk preview, ganti ke <Link> di project asli */}
-            <a href="/login" className="text-gray-500 hover:text-gray-300 transition pb-1">
+          {/* 2. TAB SWITCHER (Login | Sign up) */}
+          <div className="flex gap-8 mb-6 text-lg font-semibold pl-1">
+            {/* Tab Inaktif (Login) */}
+            <a 
+              href="/login" 
+              className="text-slate-500 hover:text-slate-300 transition-colors focus:outline-none cursor-pointer"
+            >
               Login
             </a>
-            <button className="text-blue-500 border-b-2 border-blue-500 pb-1">
+
+            {/* Tab Aktif (Sign up) */}
+            <button className="text-blue-500 transition-colors focus:outline-none relative">
               Sign up
+              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-blue-500 rounded-full"></span>
             </button>
           </div>
 
-          {/* Form Inputs */}
-          <form className="space-y-5">
+          {/* 3. FORM INPUTS */}
+          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
             
-            {/* Input Name */}
+            {/* Input: Your Name (Baru ditambahkan sesuai gambar) */}
             <div className="space-y-2">
-              <label className="text-sm font-bold text-gray-300">Your name</label>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">Your name</label>
               <input 
                 type="text" 
                 placeholder="Enter your name..." 
-                className="w-full bg-[#131620] border border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+                className="w-full bg-[#0F1218] border border-[#1F2937] rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-inner"
               />
             </div>
 
-            {/* Email */}
+            {/* Input: Email */}
             <div className="space-y-2">
-              <label className="text-sm font-bold text-gray-300">Email Address</label>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">Email Address</label>
               <input 
                 type="email" 
                 placeholder="Enter your Email Address..." 
-                className="w-full bg-[#131620] border border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+                className="w-full bg-[#0F1218] border border-[#1F2937] rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-inner"
               />
             </div>
 
-            {/* Password */}
+            {/* Input: Password */}
             <div className="space-y-2">
-              <label className="text-sm font-bold text-gray-300">Password</label>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider ml-1">Password</label>
               <div className="relative">
                 <input 
                   type={showPassword ? "text" : "password"} 
                   placeholder="Enter Your Password..." 
-                  className="w-full bg-[#131620] border border-gray-700 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+                  className="w-full bg-[#0F1218] border border-[#1F2937] rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all shadow-inner"
                 />
                 <button 
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white transition-colors focus:outline-none"
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
             </div>
 
-            {/* Terms & Conditions */}
-            <div className="flex items-center gap-2 text-xs md:text-sm">
-              <button 
-                type="button" 
-                onClick={() => setAgreeTerms(!agreeTerms)}
-                className="flex items-center gap-2 text-gray-400 hover:text-white transition"
-              >
-                {agreeTerms ? (
-                  <CheckSquare size={18} className="text-blue-500" /> 
-                ) : (
-                  <Square size={18} className="text-gray-600" />
-                )}
-                <span className="text-gray-400">I agree to terms & conditions</span>
-              </button>
+            {/* Terms Conditions Checkbox */}
+            <div className="flex items-center gap-2 pt-2 cursor-pointer group" onClick={() => setAgreeTerms(!agreeTerms)}>
+               {agreeTerms ? (
+                  <CheckSquare size={16} className="text-blue-600" />
+               ) : (
+                  <Square size={16} className="text-slate-600 group-hover:text-slate-400" />
+               )}
+               <span className="text-xs text-slate-400 group-hover:text-slate-300 transition-colors">
+                 I agree to terms & conditions
+               </span>
             </div>
 
-            {/* Join Button */}
+            {/* Button Join Now (Gradient Blue/Purple) */}
             <button 
-                type="button" 
-                className="w-full bg-[#5C5CFF] hover:bg-[#4a4ae0] text-white font-bold py-3.5 rounded-xl transition shadow-[0_0_20px_rgba(92,92,255,0.3)] hover:shadow-[0_0_30px_rgba(92,92,255,0.5)] active:scale-95"
+                type="submit" 
+                className="w-full bg-[#5C5CFF] hover:bg-[#4848d1] text-white font-bold py-3.5 rounded-xl shadow-[0_0_20px_rgba(92,92,255,0.4)] hover:shadow-[0_0_25px_rgba(92,92,255,0.6)] transition-all duration-300 transform active:scale-[0.98] mt-4"
             >
               Join Now!
             </button>
           </form>
 
           {/* Divider */}
-          <div className="relative flex items-center justify-center py-2">
-            <div className="h-px bg-gray-800 w-full absolute"></div>
-            <span className="bg-[#050511] px-3 text-xs font-bold text-gray-600 relative z-10 uppercase">
-              OR
-            </span>
+          <div className="relative flex py-2 items-center">
+            <div className="flex-grow border-t border-slate-800"></div>
+            <span className="flex-shrink mx-4 text-slate-600 text-[10px] font-bold uppercase tracking-widest">OR</span>
+            <div className="flex-grow border-t border-slate-800"></div>
           </div>
 
           {/* Social Buttons */}
           <div className="space-y-3">
-            <button className="w-full bg-transparent border border-blue-900/50 hover:border-blue-500 hover:bg-[#0f1219] text-gray-300 font-semibold py-3 rounded-xl flex items-center justify-center gap-3 transition group">
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <button className="w-full bg-transparent border border-slate-700 hover:bg-slate-800 hover:border-slate-600 text-slate-300 font-semibold py-3 rounded-xl flex items-center justify-center gap-3 transition-all group text-sm">
+              <svg className="w-4 h-4 group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
                 <path fill="#EA4335" d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .533 5.333.533 12S5.867 24 12.48 24c3.44 0 6.04-1.133 7.973-2.96 1.96-1.933 2.507-4.84 2.507-7.253 0-.72-.053-1.387-.16-2.027H12.48z" />
               </svg>
               Continue With Google
             </button>
 
-            <button className="w-full bg-transparent border border-blue-900/50 hover:border-blue-500 hover:bg-[#0f1219] text-gray-300 font-semibold py-3 rounded-xl flex items-center justify-center gap-3 transition">
-              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.48-1.03 3.93-.68 1.63.38 2.85 1.16 3.75 2.43-3.29 1.98-2.78 6.45.68 7.93-.57 1.34-1.33 2.67-2.44 3.55zM12.03 7.25c-.25-2.28 1.63-4.14 3.63-4.25.32 2.54-2.82 4.43-3.63 4.25z" />
-              </svg>
+            <button className="w-full bg-transparent border border-slate-700 hover:bg-slate-800 hover:border-slate-600 text-slate-300 font-semibold py-3 rounded-xl flex items-center justify-center gap-3 transition-all group text-sm">
+              <Apple size={18} className="text-white pb-0.5 group-hover:scale-110 transition-transform" />
               Continue With Apple
             </button>
           </div>

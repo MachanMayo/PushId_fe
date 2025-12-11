@@ -51,7 +51,7 @@ export default function Home() {
 
         {/* --- MAIN CONTENT (TEXT) --- */}
         <div className="relative z-10 text-center max-w-4xl px-4 mt-10">
-          <h1 className="font-heading text-5xl md:text-7xl font-bold leading-tight drop-shadow-2xl">
+          <h1 className="font-heading text-5xl md:text-5xl font-bold leading-tight drop-shadow-2xl">
             Find your team and become <br />
             the <span className="text-indigo-500">Winner!</span>
           </h1>
